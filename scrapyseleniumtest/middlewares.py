@@ -10,11 +10,10 @@ from logging import getLogger
 
 
 class SeleniumMiddleware():
-    def __init__(self, timeout=None):
+    def __init__(self, timeout=None, service_args=[]):
         self.logger = getLogger(__name__)
         self.timeout = timeout
-        self.browser = webdriver.Chrome()
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.PhantomJS(service_args=service_args)
         self.browser.set_window_size(1400, 700)
         self.browser.set_page_load_timeout(self.timeout)
         self.wait = WebDriverWait(self.browser, self.timeout)
@@ -28,12 +27,15 @@ class SeleniumMiddleware():
         try:
             self.browser.get(request.url)
             if page > 1:
-                input = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-pager div.form > input')))
-                submit = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#mainsrp-pager div.form > span.btn.J_Submit')))
+                input = self.wait.until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-pager div.form > input')))
+                submit = self.wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, '#mainsrp-pager div.form > span.btn.J_Submit')))
                 input.clear()
                 input.send_keys(page)
                 submit.click()
-            self.wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#mainsrp-pager li.item.active > span'), str(page)))
+            self.wait.until(
+                EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#mainsrp-pager li.item.active > span'), str(page)))
             self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.m-itemlist .items .item')))
             return HtmlResponse(url=request.url, body=self.browser.page_source, request=request, encoding='utf-8',
                                 status=200)
@@ -42,4 +44,5 @@ class SeleniumMiddleware():
     
     @classmethod
     def from_crawler(cls, crawler):
-        return cls(timeout=crawler.settings.get('SELENIUM_TIMEOUT'))
+        return cls(timeout=crawler.settings.get('SELENIUM_TIMEOUT'),
+                   service_args=crawler.settings.get('PHANTOMJS_SERVICE_ARGS'))

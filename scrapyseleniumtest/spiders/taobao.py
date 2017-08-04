@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from scrapy import Request, Spider
 from urllib.parse import quote
-
-from scrapyseleniumtest.items import TaobaoItem
+from scrapyseleniumtest.items import ProductItem
 
 
 class TaobaoSpider(Spider):
@@ -23,7 +22,7 @@ class TaobaoSpider(Spider):
             '//div[@id="mainsrp-itemlist"]//div[@class="items"][1]//div[contains(@class, "item")]')
         print('#######', response.meta.get('page'), len(products), products)
         for product in products:
-            item = TaobaoItem()
+            item = ProductItem()
             item['price'] = ''.join(product.xpath('.//div[contains(@class, "price")]//text()').extract()).strip()
             item['title'] = ''.join(product.xpath('.//div[contains(@class, "title")]//text()').extract()).strip()
             item['shop'] = ''.join(product.xpath('.//div[contains(@class, "shop")]//text()').extract()).strip()
