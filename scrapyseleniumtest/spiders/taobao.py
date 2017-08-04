@@ -30,8 +30,3 @@ class TaobaoSpider(Spider):
             item['deal'] = product.xpath('.//div[contains(@class, "deal-cnt")]//text()').extract_first()
             item['location'] = product.xpath('.//div[contains(@class, "location")]//text()').extract_first()
             yield item
-            # item['deal'] = product.css('.deal-cnt::text').extract_first()[:-3]
-            # item['title'] = ''.join(product.css('.title::text').extract())
-            # item['shop'] = ''.join(product.css('.shop::text').extract())
-            # item['location'] = product.css('.location::text').extract_first()
-            # yield item
