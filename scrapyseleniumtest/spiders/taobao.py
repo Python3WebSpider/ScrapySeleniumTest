@@ -20,7 +20,6 @@ class TaobaoSpider(Spider):
     def parse(self, response):
         products = response.xpath(
             '//div[@id="mainsrp-itemlist"]//div[@class="items"][1]//div[contains(@class, "item")]')
-        print('#######', response.meta.get('page'), len(products), products)
         for product in products:
             item = ProductItem()
             item['price'] = ''.join(product.xpath('.//div[contains(@class, "price")]//text()').extract()).strip()
