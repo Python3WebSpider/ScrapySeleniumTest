@@ -9,10 +9,9 @@ class TaobaoSpider(Spider):
     allowed_domains = ['www.taobao.com']
     base_url = 'https://s.taobao.com/search?q='
     
-    keywords = ['ipad']
     
     def start_requests(self):
-        for keyword in self.keywords:
+        for keyword in self.settings.get('KEYWORDS'):
             for page in range(1, self.settings.get('MAX_PAGE') + 1):
                 url = self.base_url + quote(keyword)
                 yield Request(url=url, callback=self.parse, meta={'page': page}, dont_filter=True)

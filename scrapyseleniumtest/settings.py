@@ -51,7 +51,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {'scrapyseleniumtest.middlewares.SeleniumMiddleware': 543, }
+DOWNLOADER_MIDDLEWARES = {
+    'scrapyseleniumtest.middlewares.SeleniumMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -61,7 +63,9 @@ DOWNLOADER_MIDDLEWARES = {'scrapyseleniumtest.middlewares.SeleniumMiddleware': 5
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {'scrapyseleniumtest.pipelines.MongoPipeline': 300, }
+ITEM_PIPELINES = {
+    'scrapyseleniumtest.pipelines.MongoPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -83,6 +87,8 @@ ITEM_PIPELINES = {'scrapyseleniumtest.pipelines.MongoPipeline': 300, }
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+KEYWORDS = ['ipad']
 
 MAX_PAGE = 100
 
