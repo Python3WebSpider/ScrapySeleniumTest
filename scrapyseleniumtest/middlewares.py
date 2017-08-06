@@ -22,6 +22,12 @@ class SeleniumMiddleware():
         self.browser.close()
     
     def process_request(self, request, spider):
+        """
+        用PhantomJS抓取页面
+        :param request: Request对象
+        :param spider: Spider对象
+        :return: HtmlResponse
+        """
         self.logger.debug('PhantomJS is Starting')
         page = request.meta.get('page', 1)
         try:
